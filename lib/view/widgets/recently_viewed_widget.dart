@@ -10,11 +10,11 @@ class RecentlyViewedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width*0.7,
+      height: MediaQuery.of(context).size.width * 0.7,
       child: ListView.builder(
           itemCount: 3,
           scrollDirection: Axis.horizontal,
-          itemBuilder:(context,index){
+          itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: RecentCiewedCard(),
@@ -23,4 +23,3 @@ class RecentlyViewedWidget extends StatelessWidget {
     );
   }
 }
-
