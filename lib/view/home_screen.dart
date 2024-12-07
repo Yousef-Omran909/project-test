@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:train/view/widgets/custom_appbar.dart';
 import 'package:train/view/widgets/custom_row.dart';
 import 'package:train/view/widgets/our_services_widget.dart';
+import 'package:train/view/widgets/recently_viewed_widget.dart';
 import 'package:train/view/widgets/text_form.dart';
 
 
@@ -27,6 +28,8 @@ class HomeScreen extends StatelessWidget {
                 OurServices(),
                 SizedBox(height: 35,),
                 CustomRow(text1: "Recently Viewed", text2: "View All"),
+                SizedBox(height: 25,),
+                RecentlyViewedWidget()
 
               ],
             ),
