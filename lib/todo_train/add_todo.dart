@@ -11,7 +11,7 @@ class AddTodo extends StatelessWidget {
       onPressed: () {
         customShowDialog(context);
         },
-      child: Icon(Icons.edit),
+      child: Icon(Icons.add),
     );
   }
 
