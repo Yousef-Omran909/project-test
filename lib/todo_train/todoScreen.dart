@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:train/todo_train/add_todo.dart';
+import 'package:train/todo_train/init_api/init_api.dart';
+import 'package:train/todo_train/params/get_all_todos_params.dart';
 import 'package:train/todo_train/widget/costom_textField.dart';
+
+import 'models/get_all_model.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -11,6 +15,32 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
+  bool isLoading=false;
+  late GetAllTodoModel data;
+  void requestData(){
+    setState(() {
+      isLoading=true;
+    });
+    InitApi().get(GetAllParams(body: GetAllParamsBody())).then((value) {
+      if(value!=null){
+        data= GetAllTodoModel.fromJson(value);
+      }else{
+        data=GetAllTodoModel(todos: []);
+      }
+      setState(() {
+        isLoading=false;
+      });
+    } );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    requestData();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,12 +49,10 @@ class _TodoScreenState extends State<TodoScreen> {
         elevation: 8,
       ),
       floatingActionButton: AddTodo(),
-      body: ListView.builder(
-          itemCount: 6,
+      body:isLoading?const Center(child: CircularProgressIndicator(),):ListView.builder(
+          itemCount: data.todos.length,
           itemBuilder: (context, index) {
-            return
-
-              Slidable(
+            return Slidable(
                 endActionPane: ActionPane(
                   motion: const ScrollMotion(),
                   children:  [
@@ -37,7 +65,6 @@ class _TodoScreenState extends State<TodoScreen> {
                     ),
                   ],
                 ),
-
                 startActionPane:  ActionPane(
                   motion: ScrollMotion(),
                   children: [
@@ -53,22 +80,21 @@ class _TodoScreenState extends State<TodoScreen> {
                   ],
                 ),
                 child: Card(
-                child: ListTile(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: Center(child: const Text("Todo content")),
-                      ),
-                    );
-                  },
-                  title: Text("ssss"),
-                  subtitle: Text("complete/ non complete"),
-
+                  child: ListTile(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Center(child: const Text("Todo content")),
+                        ),
+                      );
+                    },
+                    title: Text("${data.todos[index].todo}"),
+                    subtitle: Text("complete/ non complete"),
+                  ),
                 ),
-            ),
               );
-          }),
+          })
     );
   }
 }
