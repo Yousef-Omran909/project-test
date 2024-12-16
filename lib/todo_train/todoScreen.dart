@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:train/todo_train/add_todo.dart';
 import 'package:train/todo_train/init_api/init_api.dart';
+import 'package:train/todo_train/params/delete_todo/delete_todo_params.dart';
+import 'package:train/todo_train/params/edit_todo_params/edit_todo_params.dart';
 import 'package:train/todo_train/params/get_all_todos/get_all_todos_params.dart';
 import 'package:train/todo_train/widget/costom_textField.dart';
 
@@ -56,7 +58,12 @@ class _TodoScreenState extends State<TodoScreen> {
                   motion: const ScrollMotion(),
                   children:  [
                     SlidableAction(
-                      onPressed: (context){},
+                      onPressed: (context){
+                        InitApi().delete(DeleteTodoParams(body: DeleteTodoParamsBody(id: 5))).then((value){
+                          Navigator.pop(context);
+                          print("success");
+                        });
+                      },
                       backgroundColor: const Color(0xFFFE4A49),
                       foregroundColor: Colors.white,
                       icon: Icons.delete,
@@ -69,7 +76,12 @@ class _TodoScreenState extends State<TodoScreen> {
                   children: [
                     SlidableAction(
                       // flex: 2,
-                      onPressed: (context){},
+                      onPressed: (context){
+                        InitApi().put(EditTodoParams(body: EditTodoParamsBody(complete: false,id: 2))).then((value){
+                          Navigator.pop(context);
+                          print("success");
+                        });
+                      },
                       backgroundColor: Color(0xFF7BC043),
                       foregroundColor: Colors.white,
                       icon: Icons.edit,

@@ -27,6 +27,8 @@ class InitApi{
       return null;
     }
   }
+
+  //post
   Future<dynamic> post(ParamsModel params)async{
     try {
       var response = await dio.post(kUrl+(params.url??''),data: params.urlParams);
@@ -40,7 +42,60 @@ class InitApi{
             fontSize: 16.0
         );
         var data=response.data;
-        print("///////////////////////////////////");
+        print(data);
+        return data;
+      }
+      else{
+        print(response.statusCode);
+        return null;
+      }
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+  //put
+  Future<dynamic> put(ParamsModel params)async{
+    try {
+      var response = await dio.put(kUrl+(params.url??''),queryParameters:params.urlParams);
+      if(response.statusCode==200||response.statusCode==201){
+        print(response.statusCode);
+        var data=response.data;
+        Fluttertoast.showToast(
+            msg: "Edited",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            textColor: Colors.green,
+            fontSize: 16.0
+        );
+        print(data);
+        return data;
+      }
+      else{
+        print(response.statusCode);
+        return null;
+      }
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+  //delete
+  Future<dynamic> delete(ParamsModel params)async{
+    try {
+      var response = await dio.delete(kUrl+(params.url??''),data: params.urlParams);
+      if(response.statusCode==200||response.statusCode==201){
+        print(response.statusCode);
+        Fluttertoast.showToast(
+            msg: "Deleted",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            textColor: Colors.green,
+            fontSize: 16.0
+        );
+        var data=response.data;
         print(data);
         return data;
       }
