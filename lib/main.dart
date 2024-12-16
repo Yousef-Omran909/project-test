@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:train/todo_train/home.dart';
-import 'package:train/view/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 

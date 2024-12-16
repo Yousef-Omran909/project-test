@@ -23,7 +23,7 @@ class DeleteTodoParams extends ParamsModel<DeleteTodoParamsBody> {
 
 class DeleteTodoParamsBody extends BaseBodyModel {
   DeleteTodoParamsBody({required this.id});
-  final int id;
+  final num id;
   @override
   Map<String, dynamic> toJson() => {};
 }

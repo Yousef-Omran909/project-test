@@ -25,7 +25,7 @@ class CreateTodoParamsBody extends BaseBodyModel {
   CreateTodoParamsBody({this.todo, this.complete, this.userId});
   final String? todo;
   final bool? complete;
-  final int? userId;
+  final num? userId;
   @override
   Map<String, dynamic> toJson() => {
     'todo': todo,

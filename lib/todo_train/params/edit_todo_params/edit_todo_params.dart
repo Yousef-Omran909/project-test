@@ -23,7 +23,7 @@ class EditTodoParams extends ParamsModel<EditTodoParamsBody> {
 
 class EditTodoParamsBody extends BaseBodyModel {
   EditTodoParamsBody({required this.id,this.complete});
-  final int id;
+  final num? id;
   bool? complete;
   @override
   Map<String, dynamic> toJson() => {

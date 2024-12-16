@@ -3,20 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:train/todo_train/init_api/init_api.dart';
 import 'package:train/todo_train/params/create_todo/create_todo.dart';
-
-import '../params/get_all_todos/get_all_todos_params.dart';
 import 'costom_textField.dart';
 
-Future<dynamic> customShowDialog(BuildContext context,{ String? content,bool? checkBoxValue}) {
+Future<dynamic> customShowDialog(BuildContext context,{ String? content,bool? checkBoxValue }) {
   return showDialog(
       context: context,
-      builder: (ctx) => AddPopUpContent(todoContent: content,checkBoxValue: checkBoxValue,));
+      builder: (ctx) => AddPopUpContent(todoContent: content,checkBoxValue: checkBoxValue ));
 }
 
 class AddPopUpContent extends StatefulWidget {
-  const AddPopUpContent({ this.todoContent,super.key, this.checkBoxValue});
+  const AddPopUpContent({ this.todoContent,super.key, this.checkBoxValue, this.userId});
   final String? todoContent;
   final bool? checkBoxValue;
+  final num? userId;
   @override
   State<AddPopUpContent> createState() => _AddPopUpContentState();
 }
@@ -55,7 +54,10 @@ class _AddPopUpContentState extends State<AddPopUpContent> {
                   });
             }),
             ElevatedButton(onPressed: () {
-              InitApi().post(CreateTodoParams(body: CreateTodoParamsBody(todo: 'gfgfh',complete: false,userId: 5))).then((value){
+              InitApi().post(CreateTodoParams(
+                  body: CreateTodoParamsBody(
+                      todo: todoController.text,
+                      complete: value,userId: 5))).then((value){
                 Navigator.pop(context);
                 print("success");
               });

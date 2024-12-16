@@ -59,10 +59,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   children:  [
                     SlidableAction(
                       onPressed: (context){
-                        InitApi().delete(DeleteTodoParams(body: DeleteTodoParamsBody(id: 5))).then((value){
-                          Navigator.pop(context);
-                          print("success");
-                        });
+                        InitApi().delete(DeleteTodoParams(body: DeleteTodoParamsBody(id:data.todos[index].id)));
                       },
                       backgroundColor: const Color(0xFFFE4A49),
                       foregroundColor: Colors.white,
@@ -77,10 +74,10 @@ class _TodoScreenState extends State<TodoScreen> {
                     SlidableAction(
                       // flex: 2,
                       onPressed: (context){
-                        InitApi().put(EditTodoParams(body: EditTodoParamsBody(complete: false,id: 2))).then((value){
-                          Navigator.pop(context);
-                          print("success");
-                        });
+                        InitApi().put(EditTodoParams(
+                            body: EditTodoParamsBody(
+                                complete: data.todos[index].completed,
+                                id:data.todos[index].id)));
                       },
                       backgroundColor: Color(0xFF7BC043),
                       foregroundColor: Colors.white,
