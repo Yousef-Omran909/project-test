@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:train/todo_train/add_todo.dart';
 import 'package:train/todo_train/init_api/init_api.dart';
-import 'package:train/todo_train/params/get_all_todos_params.dart';
+import 'package:train/todo_train/params/get_all_todos/get_all_todos_params.dart';
 import 'package:train/todo_train/widget/costom_textField.dart';
 
 import 'models/get_all_model.dart';
@@ -17,6 +17,7 @@ class TodoScreen extends StatefulWidget {
 class _TodoScreenState extends State<TodoScreen> {
   bool isLoading=false;
   late GetAllTodoModel data;
+
   void requestData(){
     setState(() {
       isLoading=true;
@@ -32,12 +33,10 @@ class _TodoScreenState extends State<TodoScreen> {
       });
     } );
   }
-
   @override
   void initState() {
     // TODO: implement initState
     requestData();
-
     super.initState();
   }
 
@@ -58,7 +57,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   children:  [
                     SlidableAction(
                       onPressed: (context){},
-                      backgroundColor: Color(0xFFFE4A49),
+                      backgroundColor: const Color(0xFFFE4A49),
                       foregroundColor: Colors.white,
                       icon: Icons.delete,
                       label: 'Delete',
@@ -85,12 +84,12 @@ class _TodoScreenState extends State<TodoScreen> {
                       showDialog(
                         context: context,
                         builder: (ctx) => AlertDialog(
-                          title: Center(child: const Text("Todo content")),
+                          title: Center(child: Text("${data.todos[index].todo}")),
                         ),
                       );
                     },
                     title: Text("${data.todos[index].todo}"),
-                    subtitle: Text("complete/ non complete"),
+                    subtitle: Text("${data.todos[index].completed}"),
                   ),
                 ),
               );

@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Todo")
+          BottomNavigationBarItem(icon: Icon(Icons.note), label: "Todo")
         ],
       ),
       body: body[_selectedScreenIndex],

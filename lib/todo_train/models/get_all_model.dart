@@ -14,8 +14,8 @@ class GetAllTodoModel {
       });
     }
     total = num.parse((json['total']??0).toString());
-    skip = json['skip'];
-    limit = json['limit'];
+    skip = num.parse((json['skip']??0).toString());
+    limit = num.parse((json['limit']??0).toString());
   }
 
   Map<String, dynamic> toJson() {

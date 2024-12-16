@@ -14,7 +14,5 @@ class AddTodo extends StatelessWidget {
       child: Icon(Icons.add),
     );
   }
-
-
 }
 
