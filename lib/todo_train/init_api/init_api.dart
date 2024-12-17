@@ -1,113 +1,95 @@
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:train/todo_train/models/custom_model.dart';
 import '../../constant.dart';
 import '../params/params_model.dart';
 
-class InitApi{
-  Dio dio=Dio();
+class InitApi {
+  static Dio dio = Dio();
   //Get
-  Future<dynamic> get(ParamsModel params)async{
+  Future<Map<String, dynamic>> get(ParamsModel params) async {
     try {
-      var response = await dio.get(kUrl+(params.url??''),queryParameters:params.urlParams);
-      if(response.statusCode==200){
+      var response = await dio.get(kUrl + (params.url ?? ''),
+          queryParameters: params.urlParams);
+      if (response.statusCode == 200) {
         print(response.statusCode);
-        var data=response.data;
+        var data = jsonDecode(response.data.toString());
         print(data);
         return data;
-      }
-      else{
+      } else {
         print(response.statusCode);
-        return null;
+        return {};
       }
-    }
-    catch(e){
+    } catch (e) {
       print(e.toString());
-      return null;
+      return {};
     }
   }
 
   //post
-  Future<dynamic> post(ParamsModel params)async{
+  Future<Map<String, dynamic>> post(ParamsModel params) async {
     try {
-      var response = await dio.post(kUrl+(params.url??''),data: params.urlParams);
-      if(response.statusCode==200||response.statusCode==201){
+      var response =
+          await dio.post(kUrl + (params.url ?? ''), data: params.urlParams);
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print(response.statusCode);
-        Fluttertoast.showToast(
-            msg: "This is a Toast message",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Colors.green,
-            fontSize: 16.0
-        );
-        var data=response.data;
+        var data = response.data;
         print(data);
         return data;
-      }
-      else{
+      } else {
         print(response.statusCode);
-        return null;
+        return {};
       }
-    }
-    catch(e){
+    } catch (e) {
       print(e.toString());
-      return null;
-    }
-  }
-  //put
-  Future<dynamic> put(ParamsModel params)async{
-    try {
-      var response = await dio.put(kUrl+(params.url??''),queryParameters:params.urlParams);
-      if(response.statusCode==200||response.statusCode==201){
-        print(response.statusCode);
-        var data=response.data;
-        Fluttertoast.showToast(
-            msg: "Edited",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Colors.green,
-            fontSize: 16.0
-        );
-        print(data);
-        return data;
-      }
-      else{
-        print(response.statusCode);
-        return null;
-      }
-    }
-    catch(e){
-      print(e.toString());
-      return null;
-    }
-  }
-  //delete
-  Future<dynamic> delete(ParamsModel params)async{
-    try {
-      var response = await dio.delete(kUrl+(params.url??''),data: params.urlParams);
-      if(response.statusCode==200||response.statusCode==201){
-        print(response.statusCode);
-        Fluttertoast.showToast(
-            msg: "Deleted",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Colors.green,
-            fontSize: 16.0
-        );
-        var data=response.data;
-        print(data);
-        return data;
-      }
-      else{
-        print(response.statusCode);
-        return null;
-      }
-    }
-    catch(e){
-      print(e.toString());
-      return null;
+      return {};
     }
   }
 
+  //put
+  Future<Map<String, dynamic>> put(ParamsModel params) async {
+    try {
+      var response = await dio.put(kUrl + (params.url ?? ''),
+          queryParameters: params.urlParams);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print(response.statusCode);
+        var data = response.data;
+        print(data);
+        return data;
+      } else {
+        print(response.statusCode);
+        return {};
+      }
+    } catch (e) {
+      print(e.toString());
+      return {};
+    }
+  }
+
+  //delete
+  Future<Map<String, dynamic>> delete(ParamsModel params) async {
+    try {
+      var response =
+          await dio.delete(kUrl + (params.url ?? ''), data: params.urlParams);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print(response.statusCode);
+        var data = response.data;
+        print(data);
+        return data;
+      } else {
+        print(response.statusCode);
+        return {};
+      }
+    } catch (e) {
+      print(e.toString());
+      return {};
+    }
+  }
+
+  // statement(Response res) async {
+  //   if (res.statusCode == 200) {
+  //     return res.data;
+  //   } else {}
+  // }
 }

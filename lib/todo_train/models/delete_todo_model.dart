@@ -1,4 +1,6 @@
-class DeleteTodoModel {
+import 'package:train/todo_train/models/custom_model.dart';
+
+class DeleteTodoModel extends ApiContentModel {
   late final num id;
   late final String todo;
   late final bool completed;
@@ -8,21 +10,22 @@ class DeleteTodoModel {
 
   DeleteTodoModel(
       {required this.id,
-        this.todo='',
-        this.completed=false,
-        required this.userId,
-        this.isDeleted=false,
-        this.deletedOn=''});
+      this.todo = '',
+      this.completed = false,
+      required this.userId,
+      this.isDeleted = false,
+      this.deletedOn = ''});
 
   DeleteTodoModel.fromJson(Map<String, dynamic> json) {
-    id = num.parse((json['id']??0).toString());
+    id = num.parse((json['id'] ?? 0).toString());
     todo = json['todo'];
-    completed = json['completed'].toString()=='true';
-    userId = num.parse((json['userId']??0).toString());
-    isDeleted = json['isDeleted'].toString()=='true';
+    completed = json['completed'].toString() == 'true';
+    userId = num.parse((json['userId'] ?? 0).toString());
+    isDeleted = json['isDeleted'].toString() == 'true';
     deletedOn = json['deletedOn'];
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -32,5 +35,10 @@ class DeleteTodoModel {
     data['isDeleted'] = isDeleted;
     data['deletedOn'] = deletedOn;
     return data;
+  }
+
+  @override
+  fromJson(Map<String, dynamic> json) {
+    return DeleteTodoModel.fromJson(json);
   }
 }

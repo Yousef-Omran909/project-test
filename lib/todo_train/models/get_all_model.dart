@@ -1,10 +1,13 @@
-class GetAllTodoModel {
+import 'custom_model.dart';
+
+class GetAllTodoModel extends ApiContentModel {
   late final List<Todos> todos;
   late final num total;
   late final num skip;
   late final num limit;
 
-  GetAllTodoModel({this.todos=const [], this.total=0, this.skip=0, this.limit=0});
+  GetAllTodoModel(
+      {this.todos = const [], this.total = 0, this.skip = 0, this.limit = 0});
 
   GetAllTodoModel.fromJson(Map<String, dynamic> json) {
     todos = <Todos>[];
@@ -13,11 +16,12 @@ class GetAllTodoModel {
         todos.add(Todos.fromJson(v));
       });
     }
-    total = num.parse((json['total']??0).toString());
-    skip = num.parse((json['skip']??0).toString());
-    limit = num.parse((json['limit']??0).toString());
+    total = num.parse((json['total'] ?? 0).toString());
+    skip = num.parse((json['skip'] ?? 0).toString());
+    limit = num.parse((json['limit'] ?? 0).toString());
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['todos'] = todos.map((v) => v.toJson()).toList();
@@ -25,6 +29,11 @@ class GetAllTodoModel {
     data['skip'] = skip;
     data['limit'] = limit;
     return data;
+  }
+
+  @override
+  fromJson(Map<String, dynamic> json) {
+    return GetAllTodoModel.fromJson(json);
   }
 }
 
@@ -34,18 +43,22 @@ class Todos {
   late final bool completed;
   late final num userId;
 
-  Todos({required this.id, this.todo='', this.completed=false,required this.userId});
+  Todos(
+      {required this.id,
+      this.todo = '',
+      this.completed = false,
+      required this.userId});
 
   Todos.fromJson(Map<String, dynamic> json) {
-    id = num.parse((json['id']??0).toString());
+    id = num.parse((json['id'] ?? 0).toString());
     todo = json['todo'];
-    completed = json['completed'].toString()=='true';
-    userId = num.parse((json['userId']??0).toString());
+    completed = json['completed'].toString() == 'true';
+    userId = num.parse((json['userId'] ?? 0).toString());
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
-    data['id'] =  id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['todo'] = todo;
     data['completed'] = completed;
     data['userId'] = userId;

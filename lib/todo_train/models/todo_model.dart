@@ -1,24 +1,25 @@
-import 'package:train/todo_train/models/custom_model.dart';
+import 'custom_model.dart';
 
-class EditTodoModel extends ApiContentModel {
+//this model for Create Edit Single(by id)
+class TodoModel extends ApiContentModel {
   late final num id;
   late final String todo;
   late final bool completed;
   late final num userId;
 
-  EditTodoModel(
+  TodoModel(
       {required this.id,
       this.todo = '',
       this.completed = false,
       required this.userId});
 
-  EditTodoModel.fromJson(Map<String, dynamic> json) {
+  TodoModel.fromJson(Map<String, dynamic> json) {
     id = num.parse((json['id'] ?? 0).toString());
     todo = json['todo'];
     completed = json['completed'].toString() == 'true';
     userId = num.parse((json['userId'] ?? 0).toString());
   }
-  @override
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -30,6 +31,6 @@ class EditTodoModel extends ApiContentModel {
 
   @override
   fromJson(Map<String, dynamic> json) {
-    EditTodoModel.fromJson(json);
+    return TodoModel.fromJson(json);
   }
 }
