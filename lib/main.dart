@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:train/todo_train/home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:train/bloc_state_mangment/bloc/counter_bloc.dart';
+import 'package:train/counter_basket_app/counter_basket_app.dart';
+import 'package:train/counter_basket_app/counter_cubit.dart';
+import 'bloc_state_mangment/view/HomePage.dart';
 
 void main() {
-
   runApp(const MyApp());
 }
 
@@ -11,14 +13,11 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: Home(),
-    );
+    return BlocProvider(
+        create: (context) => CounterCubit(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: PointsCounter(),
+        ));
   }
 }

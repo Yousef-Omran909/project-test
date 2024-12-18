@@ -26,12 +26,13 @@ class TodoRepository {
   }
 
   //create todo
-  Future<TodoModel> createTodo(GetAllParams params) async {
+  Future<TodoModel?> createTodo(GetAllParams params) async {
     try {
       final remote = await remoteDataSource.post(params);
-      final data = ApiModel<TodoModel>.fromJson(remote
-          // parser: ImageSliderModel.fromJson,
-          );
+      final data = ApiModel<TodoModel>.fromJson(
+        remote,
+        parser: TodoModel.fromJson,
+      );
       return data.data;
     } on Exception catch (e) {
       return TodoModel(id: -1, userId: -1, completed: false, todo: 'error');
@@ -39,12 +40,13 @@ class TodoRepository {
   }
 
   //Edit todo
-  Future<TodoModel> editTodo(GetAllParams params) async {
+  Future<TodoModel?> editTodo(GetAllParams params) async {
     try {
       final remote = await remoteDataSource.put(params);
-      final data = ApiModel<TodoModel>.fromJson(remote
-          // parser: ImageSliderModel.fromJson,
-          );
+      final data = ApiModel<TodoModel>.fromJson(
+        remote,
+        parser: TodoModel.fromJson,
+      );
       return data.data;
     } on Exception catch (e) {
       return TodoModel(id: -1, userId: -1);
@@ -52,12 +54,13 @@ class TodoRepository {
   }
 
   //Delete todo
-  Future<DeleteTodoModel> deleteTodo(GetAllParams params) async {
+  Future<DeleteTodoModel?> deleteTodo(GetAllParams params) async {
     try {
       final remote = await remoteDataSource.put(params);
-      final data = ApiModel<DeleteTodoModel>.fromJson(remote
-          // parser: ImageSliderModel.fromJson,
-          );
+      final data = ApiModel<DeleteTodoModel>.fromJson(
+        remote,
+        parser: DeleteTodoModel.fromJson,
+      );
       return data.data;
     } on Exception catch (e) {
       return DeleteTodoModel(id: -1, userId: -1);
